@@ -67,3 +67,29 @@ More information about the usage of this directory in [the documentation](https:
 This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
 
 More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+
+## Tasks
+here is what we want to do base on Coding challenge documents
+### `task1`
+Add prerequisites
+
+### `task2`
+Page structure : add header with shopping cart details and category select box and body
+
+### `task3`
+Add product card with Add to cart button
+
+### `task4`
+Add products file and data structure. Show product cards and show categories in drop down based on products files, 
+
+### `task5`
+Shopping cart data structure
+
+### `task6`
+Add stepper button to product card, show Add to cart or stepper button based on product count
+
+### `task7`
+Add functionality when click on stepper button and update total number and total price
+
+### `task8`
+Add functionality when change category update total number and total price
