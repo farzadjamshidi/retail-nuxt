@@ -17,26 +17,46 @@
         <div class="categories-info">
           <span>You're browsing</span>
           <select class="select-category">
-            <option>cat1</option>
-            <option>cat2</option>
-            <option>cat3</option>
+            <option v-for="category in categories" :key="category.id">
+              {{ category.name }}
+            </option>
           </select>
         </div>
       </div>
     </div>
     <div class="content">
-      <Product class="pruduct" />
-      <Product class="pruduct" />
-      <Product class="pruduct" />
+      <Product
+        class="pruduct"
+        v-for="product in products"
+        :key="product.id"
+        :product="product"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import Product from "../components/Product.vue";
+import products from "../products-mock-data";
+
 export default {
   components: { Product },
   layout: "default",
+  data() {
+    return {
+      products: [],
+      categories: [],
+    };
+  },
+  mounted() {
+    this.products = products;
+    this.categories = products.reduce((acc, product) => {
+      if (acc && !acc.some((category) => category.id === product.category.id))
+        acc.push(product.category);
+
+      return acc;
+    }, []);
+  },
 };
 </script>
 
