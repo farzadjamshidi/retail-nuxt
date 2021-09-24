@@ -24,12 +24,18 @@
         </div>
       </div>
     </div>
-    <div class="content"></div>
+    <div class="content">
+      <Product class="pruduct" />
+      <Product class="pruduct" />
+      <Product class="pruduct" />
+    </div>
   </div>
 </template>
 
 <script>
+import Product from "../components/Product.vue";
 export default {
+  components: { Product },
   layout: "default",
 };
 </script>
@@ -83,5 +89,12 @@ export default {
 
 .content {
   height: calc(100vh - 80px);
+  padding: 40px 100px;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+}
+.content .pruduct {
+  margin: 10px;
 }
 </style>
