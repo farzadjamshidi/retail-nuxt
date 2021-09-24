@@ -3,15 +3,14 @@
     <div
       class="product-image"
       v-bind:style="{
-        backgroundImage:
-          'url(https://images.all-free-download.com/images/graphiclarge/dark_flowers_608925.jpg)',
+        backgroundImage: 'url(' + product.imageURL + ')',
       }"
     ></div>
     <div class="product-other-info">
-      <span class="product-name">Product Name</span>
-      <span class="product-description">Product Description</span>
+      <span class="product-name">{{ product.name }}</span>
+      <span class="product-description">{{ product.description }}</span>
     </div>
-    <span class="product-price">$3</span>
+    <span class="product-price">${{ product.price }}</span>
     <div class="add-to-cart-button-container">
       <div class="add-to-cart-button">
         <span>Add to cart</span>
@@ -24,7 +23,14 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    product: {
+      required: true,
+      type: Object,
+    },
+  },
+};
 </script>
 
 <style scoped>
