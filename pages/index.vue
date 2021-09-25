@@ -31,6 +31,8 @@
         :key="product.id"
         :product="product"
         :shoppingCartOfProduct="shoppingCartOfProduct(product)"
+        @increase="addIncreaseProductToShoppingCart"
+        @decrease="decreaseProductToShoppingCart"
       />
     </div>
   </div>
@@ -75,6 +77,29 @@ export default {
         this.shoppingCart[product.category.id]["products"][product.id] || {
           count: 0,
         };
+    },
+  },
+  methods: {
+    addIncreaseProductToShoppingCart(product) {
+      const newObj = this.shoppingCart;
+
+      if (!newObj[product.category.id]["products"][product.id])
+        newObj[product.category.id]["products"][product.id] = { count: 0 };
+
+      newObj[product.category.id].itemCount++;
+      newObj[product.category.id].totalPrice += product.price;
+      newObj[product.category.id]["products"][product.id].count++;
+
+      this.shoppingCart = { ...newObj };
+    },
+    decreaseProductToShoppingCart(product) {
+      const newObj = this.shoppingCart;
+
+      newObj[product.category.id].itemCount--;
+      newObj[product.category.id].totalPrice -= product.price;
+      newObj[product.category.id]["products"][product.id].count--;
+
+      this.shoppingCart = { ...newObj };
     },
   },
 };
