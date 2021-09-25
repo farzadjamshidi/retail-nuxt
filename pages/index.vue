@@ -46,6 +46,7 @@ export default {
     return {
       products: [],
       categories: [],
+      shoppingCart: {},
     };
   },
   mounted() {
@@ -56,6 +57,16 @@ export default {
 
       return acc;
     }, []);
+
+    this.categories.forEach((category) => {
+      this.shoppingCart[category.id] = {
+        itemCount: 0,
+        totalPrice: 0,
+        products: {
+          // 'poroductID' : {count : 0}
+        },
+      };
+    });
   },
 };
 </script>
