@@ -4,9 +4,22 @@
       <div class="header-info">
         <span>Company Name</span>
         <div class="shopping-cart-details">
-          <span>30 items added</span>
+          <span>
+            {{
+              shoppingCart[selectedCategoryID]
+                ? shoppingCart[selectedCategoryID].itemCount
+                : 0
+            }}
+            items added
+          </span>
           <div class="shopping-cart-total">
-            <span>$30</span>
+            <span>
+              ${{
+                shoppingCart[selectedCategoryID]
+                  ? shoppingCart[selectedCategoryID].totalPrice
+                  : 0
+              }}
+            </span>
             <span class="shopping-cart-icon">
               <font-awesome-icon :icon="['fas', 'shopping-cart']" />
             </span>
@@ -16,8 +29,16 @@
       <div class="categories">
         <div class="categories-info">
           <span>You're browsing</span>
-          <select class="select-category">
-            <option v-for="category in categories" :key="category.id">
+          <select
+            class="select-category"
+            v-model="selectedCategoryID"
+            @change="changeCategory"
+          >
+            <option
+              v-for="category in categories"
+              :key="category.id"
+              :value="category.id"
+            >
               {{ category.name }}
             </option>
           </select>
@@ -50,6 +71,7 @@ export default {
       products: [],
       categories: [],
       shoppingCart: {},
+      selectedCategoryID: "",
     };
   },
   mounted() {
@@ -70,6 +92,9 @@ export default {
         },
       };
     });
+
+    if (this.categories.length > 0)
+      this.selectedCategoryID = this.categories[0].id;
   },
   computed: {
     shoppingCartOfProduct: function () {
@@ -80,6 +105,9 @@ export default {
     },
   },
   methods: {
+    changeCategory: function (event) {
+      this.selectedCategoryID = event.target.value;
+    },
     addIncreaseProductToShoppingCart(product) {
       const newObj = this.shoppingCart;
 
