@@ -54,13 +54,21 @@ export default {
   },
   methods: {
     addToCart() {
-      this.shoppingCart.count = 1;
+      this.$emit("increase", this.product);
     },
     increase() {
-      this.shoppingCart.count++;
+      this.$emit("increase", this.product);
     },
     decrease() {
-      this.shoppingCart.count--;
+      this.$emit("decrease", this.product);
+    },
+  },
+  watch: {
+    shoppingCartOfProduct: function (
+      newShoppingCartOfProduct,
+      oldShoppingCartOfProduct
+    ) {
+      this.shoppingCart = newShoppingCartOfProduct;
     },
   },
 };
