@@ -40,7 +40,11 @@ export default {
 
   fontawesome: {
     icons: {
-      solid: ['faShoppingCart']
+      solid: [
+        'faShoppingCart',
+        'faPlusCircle',
+        'faMinusCircle'
+      ]
     }
   },
 

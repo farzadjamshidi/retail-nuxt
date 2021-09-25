@@ -30,6 +30,7 @@
         v-for="product in products"
         :key="product.id"
         :product="product"
+        :shoppingCartOfProduct="shoppingCartOfProduct(product)"
       />
     </div>
   </div>
@@ -67,6 +68,14 @@ export default {
         },
       };
     });
+  },
+  computed: {
+    shoppingCartOfProduct: function () {
+      return (product) =>
+        this.shoppingCart[product.category.id]["products"][product.id] || {
+          count: 0,
+        };
+    },
   },
 };
 </script>
