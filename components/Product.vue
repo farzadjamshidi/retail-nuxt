@@ -12,10 +12,23 @@
     </div>
     <span class="product-price">${{ product.price }}</span>
     <div class="add-to-cart-button-container">
-      <div class="add-to-cart-button">
+      <div
+        class="add-to-cart-button"
+        v-if="shoppingCart.count === 0"
+        @click="addToCart"
+      >
         <span>Add to cart</span>
         <span class="shopping-cart-icon">
           <font-awesome-icon :icon="['fas', 'shopping-cart']" />
+        </span>
+      </div>
+      <div class="add-to-cart-button" v-if="shoppingCart.count !== 0">
+        <span class="increase-icon" @click="increase">
+          <font-awesome-icon :icon="['fas', 'plus-circle']" />
+        </span>
+        <span class="product-count">{{ shoppingCart.count }}</span>
+        <span class="decrease-icon" @click="decrease">
+          <font-awesome-icon :icon="['fas', 'minus-circle']" />
         </span>
       </div>
     </div>
@@ -28,6 +41,26 @@ export default {
     product: {
       required: true,
       type: Object,
+    },
+    shoppingCartOfProduct: {
+      required: true,
+      type: Object,
+    },
+  },
+  data() {
+    return {
+      shoppingCart: this.shoppingCartOfProduct,
+    };
+  },
+  methods: {
+    addToCart() {
+      this.shoppingCart.count = 1;
+    },
+    increase() {
+      this.shoppingCart.count++;
+    },
+    decrease() {
+      this.shoppingCart.count--;
     },
   },
 };
@@ -80,5 +113,13 @@ export default {
 .shopping-cart-icon {
   display: inline-block;
   margin-left: 5px;
+}
+.product-count {
+  display: inline-block;
+  margin: 0px 15px;
+}
+.increase-icon {
+}
+.decrease-icon {
 }
 </style>
