@@ -61,7 +61,6 @@
 
 <script>
 import Product from "../components/Product.vue";
-import products from "../products-mock-data";
 
 export default {
   components: { Product },
@@ -75,26 +74,34 @@ export default {
     };
   },
   mounted() {
-    this.products = products;
-    this.categories = products.reduce((acc, product) => {
-      if (acc && !acc.some((category) => category.id === product.category.id))
-        acc.push(product.category);
+    this.$axios
+      .$get("/products.json")
+      .then((res) => {
+        this.products = res;
+        this.categories = this.products.reduce((acc, product) => {
+          if (
+            acc &&
+            !acc.some((category) => category.id === product.category.id)
+          )
+            acc.push(product.category);
 
-      return acc;
-    }, []);
+          return acc;
+        }, []);
 
-    this.categories.forEach((category) => {
-      this.shoppingCart[category.id] = {
-        itemCount: 0,
-        totalPrice: 0,
-        products: {
-          // 'poroductID' : {count : 0}
-        },
-      };
-    });
+        this.categories.forEach((category) => {
+          this.shoppingCart[category.id] = {
+            itemCount: 0,
+            totalPrice: 0,
+            products: {
+              // 'poroductID' : {count : 0}
+            },
+          };
+        });
 
-    if (this.categories.length > 0)
-      this.selectedCategoryID = this.categories[0].id;
+        if (this.categories.length > 0)
+          this.selectedCategoryID = this.categories[0].id;
+      })
+      .catch((error) => console.log(error));
   },
   computed: {
     shoppingCartOfProduct: function () {
